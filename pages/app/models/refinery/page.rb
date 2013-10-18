@@ -128,7 +128,7 @@ module Refinery
         globalized_conditions = {}
         conditions.keys.each do |key|
           if (translated_attribute_names.map(&:to_s) | %w(locale)).include?(key.to_s)
-            globalized_conditions["#{self.translation_class.table_name}.#{key}"] = conditions.delete(key)
+            globalized_conditions[self.translation_class.table_name] = {key => conditions.delete(key)}
           end
         end
         # A join implies readonly which we don't really want.
